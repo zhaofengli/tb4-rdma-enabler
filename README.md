@@ -114,7 +114,7 @@ hca_id:    rdma_en4
                         active_speed:              10.0 Gbps (4)
 ```
 
-On the other Mac, find the corresponding port and start a `ibv_uc_pingpong` server (macOS set up a Thunderbolt bridge by default):
+On the other Mac, find the corresponding port and start a `ibv_uc_pingpong` server (macOS sets up a Thunderbolt bridge by default):
 
 ```console
 $ ibv_devinfo -v | grep -E "hca_id|state|active_width|active_speed"
@@ -133,12 +133,12 @@ $ ibv_uc_pingpong -d rdma_en9 --size=128 --iters=1000000
   local address:  LID 0x0002, QPN 0x000910, PSN 0xc01924, GID ::
   
 # Throughput
-$ ibv_uc_pingpong -d rdma_en4 'fe80::8ad:a6c6:6857:65f6%bridge0' --size=4190208 --iters=512 --rx-depth=1
+$ ibv_uc_pingpong -d rdma_en4 --size=4190208 --iters=512 --rx-depth=1
 ```
 
 On the TB4 Mac, connect with the same parameters (`--size`, `--iters`, `--rx-depth`):
 
-```
+```console
 # Latency
 $ ibv_uc_pingpong -d rdma_en4 'fe80::8ad:a6c6:6857:65f6%bridge0' --size=128 --iters=1000000
   local address:  LID 0x0004, QPN 0x000930, PSN 0xc57b11, GID ::
@@ -156,7 +156,7 @@ $ ibv_uc_pingpong -d rdma_en4 'fe80::8ad:a6c6:6857:65f6%bridge0' --size=4190208 
 
 For reference, here's what an officially supported configuration gets over Thunderbolt 5. I got the following between an M4 Pro MacBook Pro (client) and an M5 Max Mac Studio (server):
 
-```
+```console
 # For comparison only: The following are TB5 numbers!
 
 $ ibv_uc_pingpong -d rdma_en1 'fe80::8ad:a6c6:6857:65f6%bridge0' --size=128 --iters=1000000
